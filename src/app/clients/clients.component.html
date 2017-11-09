@@ -1,0 +1,62 @@
+<main>
+	<div class="container">
+		<div class="row">
+			<h1>Clients</h1>
+			<hr>
+			<form [formGroup]="addNewClientForm" (ngSubmit)="addClient()">
+				<h3>Add new client:</h3>
+				<div class="form-group col-md-2">
+					<label for="firstName">First Name:</label>
+					<input type="text" class="form-control" id="firstName" formControlName="firstName" required>
+					<div class="invalid-field" *ngIf="addNewClientForm.controls['firstName'].invalid && (addNewClientForm.controls['firstName'].dirty || addNewClientForm.controls['firstName'].touched)">Name is required.</div>
+				</div>
+				<div class="form-group col-md-2">
+					<label for="lastName">Last Name:</label>
+					<input type="text" class="form-control" id="lastName" formControlName="lastName" required>
+					<div class="invalid-field" *ngIf="addNewClientForm.controls['lastName'].invalid && (addNewClientForm.controls['lastName'].dirty || addNewClientForm.controls['lastName'].touched)">Last Name is required.</div>
+				</div>
+				<div class="form-group col-md-2">
+					<label for="email">Email address:</label>
+					<input type="email" class="form-control" id="email" formControlName="email" required>
+					<div class="invalid-field" *ngIf="addNewClientForm.controls['email'].invalid && (addNewClientForm.controls['email'].dirty || addNewClientForm.controls['email'].touched)">Mail is not right.</div>
+				</div>
+				<div class="form-group col-md-2">
+					<label for="country">Country:</label>
+					<input type="text" class="form-control" id="country" formControlName="country">
+					<div class="invalid-field" *ngIf="addNewClientForm.controls['country'].invalid && (addNewClientForm.controls['country'].dirty || addNewClientForm.controls['country'].touched)">Country is required.</div>
+				</div>
+				<div class="form-group col-md-2">
+					<label for="city">City:</label>
+					<input type="text" class="form-control" id="city" formControlName="city">
+					<div class="invalid-field" *ngIf="addNewClientForm.controls['city'].invalid && (addNewClientForm.controls['city'].dirty || addNewClientForm.controls['city'].touched)">City is required.</div>
+				</div>
+				<button type="submit" class="btn btn-default button-add" [disabled]="addNewClientForm.invalid">Add</button>
+			</form>
+		</div>
+		<hr>
+		<div class="row">
+			<h3>Clients List:</h3>
+			<div class="row row-titles">
+				<div class="col-md-2">First Name</div>
+				<div class="col-md-2">Last Name</div>
+				<div class="col-md-2">Email address</div>
+				<div class="col-md-1">Country</div>
+				<div class="col-md-2">City</div>
+				<div class="col-md-3">Actions</div>
+			</div>
+			<div class="row clients-list-row" *ngFor="let client of clients; let i = index;">
+				<div class="col-md-2">{{client.firstName}}</div>
+				<div class="col-md-2">{{client.lastName}}</div>
+				<div class="col-md-2">{{client.email}}</div>
+				<div class="col-md-1">{{client.country}}</div>
+				<div class="col-md-2">{{client.city}}</div>
+				<div class="col-md-3">
+					<button class="btn btn-sm btn-default" (click)="editClient(i);">Edit</button>
+					<button class="btn btn-sm btn-default" (click)="removeClient(i)">Remove</button>
+					<button class="btn btn-sm btn-default" (click)="gotoOrders(i)">To Orders</button>
+				</div>
+			</div>
+		</div>
+		<edit-client [client]="currentClient" (editedClient)="refreshClient($event)" *ngIf="openEditModal"></edit-client>
+	</div>
+</main>

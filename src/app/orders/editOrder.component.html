@@ -1,0 +1,24 @@
+<main class="modals">
+	<div class="row">
+		<form [formGroup]="editOrderForm" (ngSubmit)="saveOrder()">
+			<div class="col-md-12"><h2>Orders: <span class="modals-close" (click)="closeModal();">X</span></h2></div>
+			<div class="form-group col-md-6">
+				<label for="name">Product Name:</label>
+				<input type="text" class="form-control" id="name" formControlName="name" required>
+				<div class="invalid-field" *ngIf="editOrderForm.controls['name'].invalid && (editOrderForm.controls['name'].dirty || editOrderForm.controls['name'].touched)">Name is required.</div>
+			</div>
+			<div class="form-group col-md-6">
+				<label for="price">Price:</label>
+				<input type="text" class="form-control" id="price" formControlName="price" required>
+				<div class="invalid-field" *ngIf="editOrderForm.controls['price'].invalid && (editOrderForm.controls['price'].dirty || editOrderForm.controls['price'].touched)">Last Name is required.</div>
+			</div>
+			<div class="form-group col-md-12">
+				<label for="date">Date:</label>
+				<input type="date" class="form-control" id="date" formControlName="date" required>
+				<div class="invalid-field" *ngIf="editOrderForm.controls['date'].invalid && (editOrderForm.controls['date'].dirty || editOrderForm.controls['date'].touched)">Last Name is required.</div>
+			</div>
+			<div class="col-md-12"><button type="submit" class="btn btn-default" [disabled]="editOrderForm.invalid">Save</button></div>
+		</form>
+	</div>
+</main>
+<div class="overlay" (click)="closeModal()"></div>
